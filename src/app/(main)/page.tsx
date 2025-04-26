@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from 'react';
-import RoomCodeModal from '@/components/lobby/RoomCodeModal';
+import CreateRoomModal from '@/components/lobby/CreateRoomModal';
+import JoinRoomModal from '@/components/lobby/JoinRoomModal';
 
 export default function Home() {
   const [username, setUsername] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showJoinModal, setShowJoinModal] = useState(false);
 
   return (
     <main className="min-h-screen p-4 flex flex-col items-center justify-center">
@@ -38,8 +40,12 @@ export default function Home() {
         </button>
 
         {/* Room Code Modal */}
-        {showModal && <RoomCodeModal onClose={() => setShowModal(false)} />}
-    
+        {showModal && (
+          <CreateRoomModal
+            onClose={() => setShowModal(false)}
+            username={username} // Pass username as a prop
+          />
+        )}
 
         {/* Join Room Section */}
         <div className="space-y-2">
@@ -55,10 +61,13 @@ export default function Home() {
           />
           <button
             disabled={!username || !roomCode}
+            onClick={() => setShowJoinModal(true)}
             className={`w-full p-2 rounded ${(username && roomCode) ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-400 cursor-not-allowed'} text-white`}
           >
             Join Room
           </button>
+          {/* Add the modal render: */}
+          {showJoinModal && <JoinRoomModal onClose={() => setShowJoinModal(false)} username={username} />}
         </div>
       </div>
     </main>

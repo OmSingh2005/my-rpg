@@ -1,22 +1,25 @@
 "use client"; // Client component for interactivity
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-export default function RoomCodeModal({ onClose }: { onClose: () => void }) {
+
+export default function CreateRoomModal({ onClose, username }: { onClose: () => void ; username: string}) {
   const [roomCode, setRoomCode] = useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     // Connect to your Socket.IO server
-    const socket = io("http://localhost:3001"); 
+    const socket = io("http://localhost:3001");
 
     socket.on("connect", () => {
-      socket.emit("createRoom", "Player", (code: string) => {
+      socket.emit("createRoom", username, (code: string) => {
         setRoomCode(code); // Updates with REAL code from server
       });
     });
 
-    return () => { socket.disconnect(); };
-  }, []);
+    return () => {
+      socket.disconnect();
+    };
+  }, [username]);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(roomCode);
