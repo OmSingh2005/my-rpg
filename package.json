@@ -2,8 +2,10 @@
   "name": "my-rpg",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:server": "node --loader ts-node/esm src/socket/server.mts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -12,17 +14,22 @@
     "my-rpg": "file:",
     "next": "15.3.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.17.31",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/socket.io-client": "^1.4.36",
+    "@types/ws": "^8.18.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
   }
 }
